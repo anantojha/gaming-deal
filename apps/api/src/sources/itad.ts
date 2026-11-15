@@ -24,6 +24,7 @@ export interface Offer {
   shopName: string;
   priceCents: number;
   regularCents: number;
+  currency: string;
   cut: number;
   url: string | null; // stored UNMODIFIED (affiliate tag must stay intact)
   changedAt: string | null; // when this price last CHANGED, not when ITAD checked it
@@ -117,6 +118,7 @@ export function parseOffer(v: unknown): Offer | null {
     shopName: (asString(shop.name) ?? `shop-${shopId}`).slice(0, 80),
     priceCents,
     regularCents,
+    currency: /^[A-Z]{3}$/.test(asString(asRecord(r.price)?.currency) ?? "") ? (asString(asRecord(r.price)?.currency) as string) : "USD",
     cut: typeof r.cut === "number" ? r.cut : 0,
     url: asString(r.url),
     changedAt: asString(r.timestamp),

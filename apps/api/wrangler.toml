@@ -1,0 +1,15 @@
+name = "gaming-deal-agent-api"
+main = "src/index.ts"
+compatibility_date = "2026-11-01"
+
+# Cron: one small ingestion pass every 10 minutes.
+[triggers]
+crons = ["*/10 * * * *"]
+
+# Non-secret config. Secrets are set with `wrangler secret put` (see README / .dev.vars.example).
+[vars]
+SUPABASE_URL = "https://YOUR-PROJECT-REF.supabase.co"
+CONTACT_EMAIL = "you@example.com"
+MAX_ITEMS = "3"
+ITAD_DAILY_CAP = "2000"
+CHEAPSHARK_DAILY_CAP = "300"
