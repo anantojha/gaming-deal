@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "body": {
+    "found": true,
+    "game": {
+      "id": "018d937f-21e1-728e-86d7-9acb3c59f2bb",
+      "slug": "portal-2",
+      "title": "Portal 2",
+      "type": "game",
+      "mature": false,
+      "assets": {
+        "boxart": "https://assets.isthereanydeal.com/018d937f-21e1-728e-86d7-9acb3c59f2bb/boxart.jpg?t=1790191525",
+        "banner145": "https://assets.isthereanydeal.com/018d937f-21e1-728e-86d7-9acb3c59f2bb/banner145.jpg?t=1790191525",
+        "banner300": "https://assets.isthereanydeal.com/018d937f-21e1-728e-86d7-9acb3c59f2bb/banner300.jpg?t=1790191525",
+        "banner400": "https://assets.isthereanydeal.com/018d937f-21e1-728e-86d7-9acb3c59f2bb/banner400.jpg?t=1790191525",
+        "banner600": "https://assets.isthereanydeal.com/018d937f-21e1-728e-86d7-9acb3c59f2bb/banner600.jpg?t=1790191525"
+      }
+    }
+  }
+}

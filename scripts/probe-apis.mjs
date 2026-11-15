@@ -3,6 +3,8 @@
 // Purpose: confirm access, see real response shapes, and capture rate-limit headers.
 // Endpoint shapes for ITAD are taken from its OpenAPI docs; verify against the output.
 
+import { mkdirSync, writeFileSync } from "node:fs";
+
 const UA = "GamingDealAgent/0.1 (contact: YOUR_EMAIL_HERE)"; // CheapShark requires a descriptive UA
 const CS = "https://www.cheapshark.com/api/1.0";
 const ITAD = "https://api.isthereanydeal.com";
@@ -30,6 +32,10 @@ async function call(label, url, init = {}) {
   console.log(`\n=== ${label}\n${res.status} ${init.method ?? "GET"} ${url}`);
   console.log("rate-limit headers:", limitHeaders);
   console.log(JSON.stringify(body, null, 2).slice(0, 900));
+  // Save the FULL response as a fixture (console output above is truncated)
+  mkdirSync("fixtures", { recursive: true });
+  const name = label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  writeFileSync(`fixtures/${APPID}-${name}.json`, JSON.stringify({ status: res.status, body }, null, 2));
   if (res.status === 429) {
     console.log("!! 429: stop and respect Retry-After before continuing");
     process.exit(1);
@@ -42,7 +48,10 @@ const itadHeaders = { "ITAD-API-Key": KEY ?? "", "Content-Type": "application/js
 // ---------- CheapShark (no key; be gentle: 1 call/sec) ----------
 await call("CheapShark: stores", `${CS}/stores`);
 await sleep(1000);
-await call("CheapShark: game by Steam appid", `${CS}/games?steamAppID=${APPID}`);
+const csGame = await call("CheapShark: game by Steam appid", `${CS}/games?steamAppID=${APPID}`);
+await sleep(1000);
+const csGameId = Array.isArray(csGame.body) ? csGame.body[0]?.gameID : undefined;
+if (csGameId) await call("CheapShark: game detail with deals", `${CS}/games?id=${csGameId}`);
 await sleep(1000);
 await call("CheapShark: Steam deals sample", `${CS}/deals?storeID=1&pageSize=5&sortBy=Savings`);
 
@@ -59,6 +68,7 @@ if (!gid) {
   process.exit(1);
 }
 
+// ITAD rejected toISOString() (milliseconds + Z). Use second precision with +00:00, as ITAD itself returns.
 const since = new Date(Date.now() - 365 * 864e5).toISOString().replace(/\.\d{3}Z$/, "+00:00");
 const post = (path, body) => ({ method: "POST", headers: itadHeaders, body: JSON.stringify(body) });
 

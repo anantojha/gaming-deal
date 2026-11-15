@@ -1,0 +1,66 @@
+{
+  "status": 200,
+  "body": {
+    "prices": [
+      {
+        "id": "018d937f-21e1-728e-86d7-9acb3c59f2bb",
+        "current": {
+          "shop": {
+            "id": 61,
+            "name": "Steam"
+          },
+          "price": {
+            "amount": 9.99,
+            "amountInt": 999,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 9.99,
+            "amountInt": 999,
+            "currency": "USD"
+          },
+          "cut": 0,
+          "voucher": null,
+          "flag": null,
+          "drm": [],
+          "platforms": [
+            {
+              "id": 1,
+              "name": "Windows"
+            },
+            {
+              "id": 3,
+              "name": "Linux"
+            }
+          ],
+          "timestamp": "2026-10-08T19:19:57+02:00",
+          "expiry": null,
+          "url": "https://itad.link/018d9386-b04c-7082-93ee-cf4eb9246544/?app=76xfra"
+        },
+        "lowest": {
+          "shop": {
+            "id": 61,
+            "name": "Steam"
+          },
+          "price": {
+            "amount": 0.99,
+            "amountInt": 99,
+            "currency": "USD"
+          },
+          "regular": {
+            "amount": 9.99,
+            "amountInt": 999,
+            "currency": "USD"
+          },
+          "cut": 90,
+          "timestamp": "2019-06-26T06:04:36+02:00"
+        },
+        "bundled": 0,
+        "urls": {
+          "game": "https://isthereanydeal.com/game/id:018d937f-21e1-728e-86d7-9acb3c59f2bb/"
+        }
+      }
+    ],
+    "bundles": []
+  }
+}
